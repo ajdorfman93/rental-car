@@ -1,17 +1,22 @@
 name: Update rental‑car data
 
 on:
-  schedule:
-    - cron:  '0 6 * * *'   # daily 06:00 UTC
-  workflow_dispatch:
+  push:                # run when new code hits main (helps debug)
+    branches: [main]
+  schedule:            # nightly production refresh
+    - cron:  "0 6 * * *"        # 06 UTC
+  workflow_dispatch:   # manual trigger button
 
 jobs:
   scrape:
     runs-on: ubuntu-latest
-    permissions:               # ← REQUIRED for auto‑commit
+
+    # allow auto‑commit
+    permissions:
       contents: write
 
     env:
+      # ---------- default query params ----------
       PICKUP_LOCATION:  JFK
       DROPOFF_LOCATION: JFK
       PICKUP_DATE:      2025-06-01
@@ -21,20 +26,35 @@ jobs:
       VEHICLE_TYPE:     any
 
     steps:
+      # ——— checkout code ——————————————————————————
       - uses: actions/checkout@v4
 
+      # ——— Node setup ————————————————————————————
       - uses: actions/setup-node@v4
         with:
-          node-version: '20'
+          node-version: "20"
 
-      - name: Fetch Priceline data → JSON
+      # ——— install deps (none, but keeps parity) ——–
+      - name: Install dependencies
+        run: npm ci
+
+      # ——— run Priceline scraper ——————————————
+      - name: Run scraper
         env:
-          RAPIDAPI_KEY: ${{ secrets.RAPIDAPI_KEY }}
-        run: |
-          node scripts/scraper.js
+          RAPIDAPI_KEY: ${{ secrets.RAPIDAPI_KEY }}   # set in repo > Settings > Actions > Secrets
+        run: npm run scrape
 
-      - name: Commit updated rentals.json
-        uses: stefanzweifel/git-auto-commit-action@v5
+      # ——— commit updated JSON ————————————————
+      - uses: stefanzweifel/git-auto-commit-action@v5
         with:
-          commit_message: "chore: refresh rental‑car data"
-          skip_fetch: true
+          commit_message: "chore: update rental‑car JSON"
+          add_options: "-u"            # stage tracked files
+          file_pattern: "data/rentals.json"
+          skip_dirty_check: true       # exit 0 if nothing changed
+
+      # ——— upload the JSON as artifact (optional) —
+      - name: Upload rentals.json
+        uses: actions/upload-artifact@v4
+        with:
+          name: rentals-json
+          path: data/rentals.json
