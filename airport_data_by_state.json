@@ -1,0 +1,44 @@
+{
+  "Alabama": {
+    "abbreviation": "AL",
+    "airports": [
+      {
+        "name": "Birmingham International Airport",
+        "code": "BHM"
+      },
+      {
+        "name": "Dothan Regional Airport",
+        "code": "DHN"
+      },
+      {
+        "name": "Huntsville International Airport",
+        "code": "HSV"
+      },
+      {
+        "name": "Mobile",
+        "code": "MOB"
+      },
+      {
+        "name": "Montgomery",
+        "code": "MGM"
+      }
+    ]
+  },
+  "Alaska": {
+    "abbreviation": "AK",
+    "airports": [
+      {
+        "name": "Anchorage International Airport",
+        "code": "ANC"
+      },
+      {
+        "name": "Fairbanks International Airport",
+        "code": "FAI"
+      },
+      {
+        "name": "Juneau International Airport",
+        "code": "JNU"
+      }
+    ]
+  }
+}
