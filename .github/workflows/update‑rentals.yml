@@ -1,0 +1,43 @@
+name: Update rental‑car data
+
+on:
+  schedule:
+    - cron:  '0 6 * * *'        # daily @ 06:00 UTC
+  workflow_dispatch:            # allow manual run from the Actions tab
+
+jobs:
+  scrape:
+    runs-on: ubuntu-latest
+
+    env:                         # make params easy to tweak
+      PICKUP_LOCATION:  JFK
+      DROPOFF_LOCATION: JFK
+      PICKUP_DATE:      2025-06-01   # YYYY-MM-DD
+      PICKUP_TIME:      10:00        # HH:MM 24‑hour
+      DROPOFF_DATE:     2025-06-04
+      DROPOFF_TIME:     10:00
+      VEHICLE_TYPE:     any          # compact, suv, truck, van, any
+
+    steps:
+      - name: Check out repo
+        uses: actions/checkout@v4
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Install deps
+        run: npm ci
+        
+      - name: Fetch Priceline data & write JSON
+        env:
+          RAPIDAPI_KEY: ${{ secrets.RAPIDAPI_KEY }}
+        run: npm run scrape
+
+      - name: Commit updated JSON
+        uses: stefanzweifel/git-auto-commit-action@v5
+        with:
+          commit_message: 'chore: refresh rental‑car data'
+          # To prevent a loop if the job is triggered by its own commit
+          skip_fetch: true

@@ -1,0 +1,17 @@
+{
+  "name": "rental-car-finder",
+  "version": "1.0.0",
+  "description": "Static rental‑car search site hosted on GitHub Pages with nightly data refresh via GitHub Actions.",
+  "type": "module",
+  "scripts": {
+    "scrape": "node scripts/scraper.js",
+    "serve": "npx serve ."
+  },
+  "dependencies": {
+    "node-fetch": "^3.3.2"
+  },
+  "engines": {
+    "node": ">=18"
+  },
+  "license": "MIT"
+}

@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Results – Rental‑Car Finder</title>
+  <link rel="stylesheet" href="styles/main.css" />
+  <!-- Leaflet for map -->
+  <link
+    rel="stylesheet"
+    href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
+    integrity="sha256-sA+e2LTfbwWb4HBT7JkzYwQ4MwjaG40DlYwXg7XYn8E="
+    crossorigin=""
+  />
+</head>
+<body>
+  <header class="container">
+    <h1>Results</h1>
+  </header>
+
+  <main class="container results-layout">
+    <aside class="filters card">
+      <h2>Filters</h2>
+
+      <label>
+        Rental company
+        <select id="companyFilter">
+          <option value="all">All</option>
+        </select>
+      </label>
+
+      <label>
+        State
+        <select id="stateFilter">
+          <option value="all">All</option>
+        </select>
+      </label>
+
+      <label>
+        Sort by price
+        <select id="sortSelect">
+          <option value="asc">Low → High</option>
+          <option value="desc">High → Low</option>
+        </select>
+      </label>
+    </aside>
+
+    <section class="results" id="resultsContainer">
+      <p class="loading">Loading results…</p>
+    </section>
+
+    <section id="map" class="map"></section>
+  </main>
+
+  <script
+    src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
+    integrity="sha256-a1Q+08SFBXwbPvN5O6QtdH8P7Gg1FQ8702Ltu1ieGxQ="
+    crossorigin=""
+  ></script>
+  <script type="module" src="scripts/results.js"></script>
+</body>
+</html>

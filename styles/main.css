@@ -1,0 +1,121 @@
+/* Basic utility */
+:root {
+  --brand: #1e40af;
+  --light: #f8fafc;
+  --gray: #e2e8f0;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  font-family: system-ui, sans-serif;
+  background: var(--light);
+  color: #111;
+}
+
+/* Layout helpers */
+.container {
+  width: 90%;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 1rem 0;
+}
+
+.card {
+  background: #fff;
+  padding: 1rem;
+  border: 1px solid var(--gray);
+  border-radius: 0.5rem;
+  box-shadow: 0 1px 3px rgb(0 0 0 / 0.05);
+}
+
+form label,
+.filters label {
+  display: block;
+  margin-bottom: 0.75rem;
+  font-size: 0.9rem;
+}
+
+input,
+select,
+button {
+  width: 100%;
+  padding: 0.5rem;
+  font-size: 1rem;
+  margin-top: 0.25rem;
+  border: 1px solid var(--gray);
+  border-radius: 0.4rem;
+}
+
+button {
+  background: var(--brand);
+  color: #fff;
+  cursor: pointer;
+  margin-top: 1rem;
+}
+
+.checkbox {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin-top: 0.5rem;
+}
+
+/* Results page */
+.results-layout {
+  display: grid;
+  grid-template-columns: 260px 1fr 350px;
+  grid-gap: 1rem;
+  padding-bottom: 2rem;
+}
+
+.filters {
+  position: sticky;
+  top: 1rem;
+  height: fit-content;
+}
+
+.results {
+  display: grid;
+  gap: 1rem;
+}
+
+.result-card {
+  border: 1px solid var(--gray);
+  border-radius: 0.5rem;
+  padding: 1rem;
+  background: #fff;
+  display: flex;
+  gap: 1rem;
+  align-items: center;
+}
+
+.result-card img {
+  width: 96px;
+  height: 64px;
+  object-fit: cover;
+  border-radius: 0.25rem;
+}
+
+.map {
+  height: 600px;
+  border: 1px solid var(--gray);
+  border-radius: 0.5rem;
+}
+
+/* Responsive */
+@media (max-width: 900px) {
+  .results-layout {
+    grid-template-columns: 1fr;
+  }
+
+  #map {
+    height: 400px;
+    margin-top: 1rem;
+  }
+}
