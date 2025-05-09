@@ -23,7 +23,7 @@ jobs:
 
       - name: run scraper
         env:
-          RAPIDAPI_KEY: ${{ secrets.RAPIDAPI_KEY }}
+          RAPIDAPI_KEY: ${{secrets.RAPIDAPI_KEY}}
         run: |
           node - <<'NODE'
           import { mkdir, writeFile } from 'fs/promises';
